@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import wget
+import os.path
+from os import path
  
  
 url = 'https://www.ccontario.com/thru-the-bible'
@@ -19,11 +21,16 @@ for link in soup.find_all('a'):
         try:
             #r = requests.get(f'https://www.calvarychapelontario.com/teaching/{x}/{x}.zip')
             src = (f'https://www.calvarychapelontario.com/teaching/{x}/{x}.zip')
-            path = (f'C:/Users/geral/Downloads/{x}.zip')
-            wget.download(src, path)
-            print(f'Completed download {x}')
+            save_path = (f'C:\MotherBibleAudio\{x}.zip')
+            if not path.exists(save_path):
+                
+                wget.download(src, save_path)
+                print(f'\n---------- Completed download {x} ----------')
+            #else:
+                #print(f'\n---------- {x} already exists ----------')
         except:
-            print(f'Could not download {x}')
+            print(f'---------- Could not download {x} ----------')
+            #print(f'---------- Error: {error} ----------')
     #x = re.search("^\https://www.ccontario.com/", url_text)
     #text_file.write()
 
